@@ -166,8 +166,21 @@ Git
 ```
 
 ### 1. Projeyi İndir
+### 1. Projeyi İndir
+
+**Yöntem A — Git ile klonlama (önerilen):**
 ```bash
 git clone https://github.com/emirhanarici11/itsm-system.git
+cd itsm-system
+```
+
+**Yöntem B — ZIP olarak indirme:**
+1. GitHub'da [proje sayfasına](https://github.com/emirhanarici11/itsm-system) git
+2. Sağ üstteki yeşil **"Code"** butonuna tıkla
+3. **"Download ZIP"** seçeneğine tıkla
+4. İndirilen ZIP dosyasını istediğin klasöre çıkar
+5. Çıkarılan klasöre terminalde git:
+```bash
 cd itsm-system
 ```
 
