@@ -159,13 +159,19 @@ itsm-system/
 ## 🛠️ Kurulum
 
 ### Gereksinimler
-```bash
-Node.js 18+
-npm
-Git
-```
+- **Node.js** (v18 veya üzeri) — https://nodejs.org adresinden "LTS" sürümünü indirin
+- **npm** (Node.js ile birlikte otomatik gelir)
+- **Git** (opsiyonel, klonlama için) — https://git-scm.com adresinden indirin
 
-### 1. Projeyi İndir
+Kurulumu doğrulamak için terminalde:
+```bash
+node -v
+npm -v
+```
+İkisi de bir versiyon numarası döndürmelidir. Eğer "tanınmıyor" hatası alırsanız, Node.js kurulumunu yapın ve **terminali tamamen kapatıp yeniden açın**.
+
+---
+
 ### 1. Projeyi İndir
 
 **Yöntem A — Git ile klonlama (önerilen):**
@@ -179,27 +185,38 @@ cd itsm-system
 2. Sağ üstteki yeşil **"Code"** butonuna tıkla
 3. **"Download ZIP"** seçeneğine tıkla
 4. İndirilen ZIP dosyasını istediğin klasöre çıkar
-5. Çıkarılan klasöre terminalde git:
-```bash
-cd itsm-system
-```
+5. Çıkarılan klasöre terminalde git
+
+---
 
 ### 2. Backend Kurulumu
+
+Bir terminal açın ve proje klasöründeyken:
 ```bash
 cd backend
 npm install
+```
+
+Kurulum bitince sunucuyu başlatın:
+```bash
 node src/index.js
 ```
-✅ `Sunucu 3001 portunda çalışıyor` mesajını gördüğünüzde backend hazır demektir.
+
+✅ Şu mesajı gördüğünüzde backend hazırdır:
+Sunucu 3001 portunda çalışıyor
 
 ### 3. Frontend Kurulumu
-**Yeni bir terminal** açın (backend terminali açık kalsın):
+
+**Backend terminalini açık bırakın** ve **yeni bir terminal** açın:
 ```bash
 cd frontend
 npm install
 npm start
 ```
+
 ✅ Tarayıcı otomatik olarak `http://localhost:3000` adresini açacaktır.
+
+---
 
 ### 4. İlk Giriş
 
@@ -207,14 +224,51 @@ npm start
 |---------------|-------|
 | bt.admin | bt123456 |
 
-> ⚠️ İlk girişten sonra **Şifre Değiştir** butonundan şifreyi güncellemeniz önerilir.
-
-### ⚠️ Önemli Notlar
-- Backend (**3001**) ve frontend (**3000**) **aynı anda** çalışmalıdır
-- Veritabanı (`itsm.db`) ilk çalıştırmada **otomatik oluşturulur**
-- `.db` dosyaları `.gitignore` ile hariç tutulmuştur, her kurulumda sıfır veritabanı oluşur
+> ⚠️ İlk girişten sonra **Şifre Değiştir** butonundan şifrenizi güncellemeniz önerilir.
 
 ---
+
+## 🔧 Sık Karşılaşılan Sorunlar (Troubleshooting)
+
+### "npm/node tanınmıyor" hatası
+**Sebep:** Node.js kurulu değil veya PATH'e eklenmemiş.
+**Çözüm:** Node.js'i https://nodejs.org adresinden kurun, kurulumdan sonra **terminali tamamen kapatıp yeniden açın**.
+
+### "running scripts is disabled on this system" hatası (PowerShell)
+**Sebep:** Windows PowerShell güvenlik politikası npm script'lerini engelliyor.
+**Çözüm:** PowerShell'i normal (yönetici olmadan) açıp şu komutu çalıştırın:
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+Onay isteğinde `Y` yazıp Enter'a basın, sonra `npm install` komutunu tekrar çalıştırın.
+
+### "Cannot find path" / klasör bulunamıyor hatası
+**Sebep:** Terminal, projenin bulunduğu klasörde değil.
+**Çözüm:** `cd` komutuyla projenin tam yoluna gidin, örneğin:
+```bash
+cd C:\Users\KULLANICI_ADI\itsm-system\backend
+```
+Klasörün doğru yerde olduğunu `dir` (Windows) veya `ls` (Mac/Linux) komutuyla kontrol edin.
+
+### "EADDRINUSE" veya port hatası
+**Sebep:** 3000 veya 3001 portu başka bir uygulama tarafından kullanılıyor.
+**Çözüm:** İlgili uygulamayı kapatın veya bilgisayarı yeniden başlatıp tekrar deneyin.
+
+### Sayfa açılıyor ama veriler gelmiyor / "Network Error"
+**Sebep:** Backend çalışmıyor.
+**Çözüm:** Backend terminalinin açık ve `Sunucu 3001 portunda çalışıyor` mesajının göründüğünden emin olun. Frontend, backend olmadan çalışmaz.
+
+### Giriş yapılamıyor
+**Sebep:** Veritabanı henüz oluşmamış veya admin hesabı yok.
+**Çözüm:** Backend'i ilk kez çalıştırdığınızda `itsm.db` dosyası ve varsayılan admin hesabı (`bt.admin` / `bt123456`) otomatik oluşur. Backend'in en az bir kez başarıyla başladığından emin olun.
+
+---
+
+### ⚠️ Önemli Notlar
+- Backend (**port 3001**) ve frontend (**port 3000**) **aynı anda** çalışır durumda olmalıdır
+- Veritabanı dosyası (`backend/itsm.db`) ilk çalıştırmada **otomatik olarak oluşturulur**
+- `.db` dosyaları `.gitignore` ile GitHub'a yüklenmez; her yeni kurulumda sıfır/temiz bir veritabanı oluşur
+- `npm install` sırasında uyarı (warning) mesajları görülebilir — bunlar genellikle hata değildir, kurulum işlemine engel olmaz
 
 ## 📖 Kullanım
 
